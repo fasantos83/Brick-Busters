@@ -19,6 +19,6 @@ public class LevelCompleteScreen : MonoBehaviour {
     }
 
     private IEnumerator ShowMessage() {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSecondsRealtime(2f);
     }
 }

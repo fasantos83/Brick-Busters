@@ -41,6 +41,7 @@ public class BallController : MonoBehaviour {
     }
 
     private void OnCollisionExit2D(Collision2D collision) {
+        SoundManager.instance.PlayBallBounceSound();
         if (collision.gameObject.CompareTag("Brick")){
             collision.gameObject.GetComponent<BrickController>().DestroyBrick();
         }
@@ -50,6 +51,7 @@ public class BallController : MonoBehaviour {
         if (collision.CompareTag("Respawn")) {
             ActivateBall(false);
             GameManager.instance.RespawnBall();
+            SoundManager.instance.PlayBallDeadSound();
         }
     }
 }

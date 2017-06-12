@@ -16,6 +16,7 @@ public class BrickController : MonoBehaviour {
         GameManager.instance.UpdateScore(brickValue);
         GameObject scoreObject = Instantiate(scoreEffect, transform.position, transform.rotation) as GameObject;
         scoreObject.GetComponent<ScoreEffect>().SetScore(brickValue);
+        SoundManager.instance.PlayBrickBrokenSound();
         Destroy(gameObject);
     }
 }

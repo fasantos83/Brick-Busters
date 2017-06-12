@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour {
     public BallController ballController;
     public Text lifeText;
     public Text scoreText;
+    public Text hiScoreText;
     public GameObject gameOverScreen;
     public GameObject pauseScreen;
     public GameObject levelCompleteScreen;
@@ -32,6 +33,7 @@ public class GameManager : MonoBehaviour {
     private bool levelComplete = false;
     private int life = 3;
     private int currentScore = 0;
+    private int currentHiScore;
     private int totalBricks;
     private int brokenBricks;
 
@@ -49,6 +51,7 @@ public class GameManager : MonoBehaviour {
         //Load score and lives from PlayerPrefs
         currentScore = PlayerPrefs.GetInt("currentScore");
         life = PlayerPrefs.GetInt("life");
+        currentHiScore = PlayerPrefs.GetInt("hiScore");
 
         brokenBricks = 0;
         BrickGenerator.instance.CreateBlockGroup(bricks);
@@ -74,7 +77,12 @@ public class GameManager : MonoBehaviour {
 
     public void UpdateScore(int score) {
         currentScore += score;
+        if(currentScore > currentHiScore) {
+            currentHiScore = currentScore;
+            PlayerPrefs.SetInt("hiScore", currentHiScore);
+        }
         scoreText.text = "SCORE: " + currentScore;
+        hiScoreText.text = "HI-SCORE: " + currentHiScore;
         CheckLevelComplete();
     }
 
@@ -91,6 +99,7 @@ public class GameManager : MonoBehaviour {
 
     public void CheckLevelComplete() {
         if (brokenBricks == totalBricks) {
+            Time.timeScale = 0f;
             levelComplete = true;
             ballController.ActivateBall(false);
             levelCompleteScreen.SetActive(true);
@@ -99,6 +108,7 @@ public class GameManager : MonoBehaviour {
 
     public void CheckGameOver() {
         if (life <= 0) {
+            Time.timeScale = 0f;
             gameOver = true;
             ballController.ActivateBall(false);
             gameOverScreen.SetActive(true);

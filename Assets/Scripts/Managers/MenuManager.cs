@@ -27,7 +27,9 @@ public class MenuManager : MonoBehaviour {
 
         PlayerPrefs.SetInt("currentScore", 0);
         PlayerPrefs.SetInt("life", 3);
-        PlayerPrefs.SetInt("hiScore", 0);
+        if (!PlayerPrefs.HasKey("hiScore")) {
+            PlayerPrefs.SetInt("hiScore", 0);
+        }
     }
 
     public void PauseGame(GameObject pauseScreen) {
