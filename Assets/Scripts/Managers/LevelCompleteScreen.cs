@@ -14,6 +14,8 @@ public class LevelCompleteScreen : MonoBehaviour {
 
             StartCoroutine(ShowMessage());
             Destroy(GameManager.instance.gameObject);
+			Destroy(MenuManager.instance.gameObject);
+			Destroy(SoundManager.instance.gameObject);
             SceneManager.LoadScene(nextLevel);
         }
     }

@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour {
     public GameObject levelCompleteScreen;
     public Brick[] bricks;
 
+    private int level = 1;
     private bool gameActive = false;
     private bool gameOver = false;
     private bool levelComplete = false;
